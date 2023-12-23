@@ -16,13 +16,15 @@ struct ViewInspectorPreferenceKey<T>: PreferenceKey {
 
     static var defaultValue: FalseEquatableValueWrapper { FalseEquatableValueWrapper() }
     static func reduce(value: inout Value, nextValue: () -> Value) {
-        fatalError()
+        assertionFailure("this should not be called")
     }
 }
 
-private extension NotificationCenter {
-    static func viewInspectorName<T>(_ t: T.Type) -> Notification.Name {
-        Notification.Name(rawValue: String(describing: ViewInspectorPreferenceKey<T>.self))
+extension NotificationCenter {
+    static var viewInspectorCenter: NotificationCenter?
+    
+    private static func viewInspectorName<T>(_ t: T.Type) -> Notification.Name {
+        Notification.Name(rawValue: "view_inspector_\(T.self)")
     }
 
     func viewInspectorPost<T>(_ v: T) {
@@ -44,11 +46,11 @@ extension View {
     }
 
     func viewInspectorPostOnAppear() -> some View {
-        onAppear { NotificationCenter.default.viewInspectorPost(self) }
+        onAppear { NotificationCenter.viewInspectorCenter?.viewInspectorPost(self) }
     }
 
-    func viewInspectorReceiveOnFirstAppear<T>(_ block: @escaping (T) -> Void) -> some View {
-        onReceive(NotificationCenter.default.viewInspectorPublisher().first(), perform: block)
+    func viewInspectorReceiveOnAppear<T>(_ block: @escaping (T) -> Void) -> some View {
+        onReceive(NotificationCenter.viewInspectorCenter!.viewInspectorPublisher(), perform: block)
     }
 
     func installView() {

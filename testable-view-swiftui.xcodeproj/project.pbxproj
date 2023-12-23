@@ -36,6 +36,8 @@
 		7E1378432B360A1D00C83B78 /* testable_view_swiftuiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testable_view_swiftuiTests.swift; sourceTree = "<group>"; };
 		7E13785C2B37032D00C83B78 /* TestingSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingSupport.swift; sourceTree = "<group>"; };
 		7E13785E2B370A3800C83B78 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
+		7E1378632B3790FC00C83B78 /* testable-view-swiftui.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "testable-view-swiftui.xctestplan"; sourceTree = "<group>"; };
+		7E1378642B37915700C83B78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,8 @@
 		7E1378262B360A1B00C83B78 = {
 			isa = PBXGroup;
 			children = (
+				7E1378642B37915700C83B78 /* README.md */,
+				7E1378632B3790FC00C83B78 /* testable-view-swiftui.xctestplan */,
 				7E1378312B360A1B00C83B78 /* testable-view-swiftui */,
 				7E1378422B360A1D00C83B78 /* testable-view-swiftuiTests */,
 				7E1378302B360A1B00C83B78 /* Products */,

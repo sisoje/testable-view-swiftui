@@ -1,17 +1,19 @@
-# Testable SwiftUI Views
-NOTE:
-- In this example I show you how to test the SwiftUI.View natively, the same way like you would test view-model, no hacking, no third party libs, all made in few minutes of coding.
-- The test shows how ObservableObject view-model is not optimal approach. It basically makes no sense in SwiftUI.
+# Testable SwiftUI views
 
-SwifUI.View is just a protocol that ANY value and ONLY value can conform to. It contains body function that evaluates to yet another SwiftUI.View. That is all we need to know about the SwiftUI.View.
+## Note:
 
-That means SwiftUI.View is not a real view, it has no property of a real view that we can access, no frame, no color, nothing. So what REALLY is a SwiftUI.View?
+- This tutorial demonstrates how to test a `SwiftUI.View` in the same way you might test a view-model, without hacks or third-party libraries, accomplished in just a few minutes of coding.
+- We show why the `ObservableObject` view-model approach may not be the best fit for SwiftUI, as it doesn't align well with its paradigm.
+
+`SwiftUI.View` is a protocol that only value types can conform to, its centerpiece being the `body` function, which produces another `SwiftUI.View`. Understanding this is key to grasping the essence of `SwiftUI.View`.
+
+This implies that `SwiftUI.View` isn't a traditional view—it lacks typical view properties like frame or color. So, we're left to wonder: What actually defines a `SwiftUI.View`?
+
 
 # Attempting MVVM in SwiftUI
 
-Lets see two very similar, basically the same, implementations:
-
-```
+Consider two similar implementations:
+```swift
 class ContentViewModel: ObservableObject {
   @Published var sheetShown = false
   @Published var counter = 0
@@ -26,12 +28,12 @@ struct ContentModel {
   func showSheet() { sheetShown.toggle() }
 }
 ```
-One is a class, a reference type, and it can never conform to a SwiftUI.View.\
-The other is a struct, a value type, and we are going to conform it to a SwiftUI.View/
+One is a class, a reference type, incompatible with SwiftUI.View. The other, a struct—a value type—we can make conform to SwiftUI.View.
 
 # SwiftUI.View couplig/decoupling
-Native SwiftUI.View now looks like this:
-```
+
+The native SwiftUI.View for ContentModel would look like this:
+```swift
 extension ContentModel: View {
     var body: some View {
         VStack {
@@ -45,16 +47,14 @@ extension ContentModel: View {
     }
 }
 ```
-It's clear that by conforming SwiftUI.View we basically just extend out ContentModel with a body function. It is basically the same as view-model with exception that it is a value type.
+By conforming to SwiftUI.View, we simply extend ContentModel with a body function. It remains akin to a view-model, except it’s a value type.
 
-Did Apple really couple "view" and the business logic? They did not! They followed Open-Closed principle. They just took the model (which is practically the same as view-model) and extended it with a body function.
-
-(Hard) decoupling is not always good. Once you decouple system into parts, then you need to glue parts back together to make system working. And that introduces some boilerplate mess. Apple did the right thing.
+Did Apple really couple view and business logic? No! They followed the Open-Closed principle, took the model (functionally similar to a view-model), and extended it with a body function. That is protocol-oriented programming at work!
 
 # MVVM practitioners
 
-The view-model class is abused by MVVM practitioners and they make a SwiftUI.View like this:
-```
+MVVM practitioners adapt the class-based view-model for SwiftUI like this:
+```swift
 struct ContentView: View {
     @StateObject var vm = ContentViewModel()
     var body: some View {
@@ -69,40 +69,52 @@ struct ContentView: View {
     }
 }
 ```
-Apple purposly used value type with body function extension, but MVVM practitioners decided to rip it apart, turn it into a reference type mess. Why? So that they can test VM, really?
+What’s the justification for MVVM advocates to decouple as they do? It seems duplicative, given Apple’s use of protocol-oriented programming for innate decoupling.
 
-What do MVVM practitioners try to decouple here? As we see its already decoupled. In the process of view-model decoupling from some imaginary view that does not exist, MVVM practitioners broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
+The chosen path often fragments SwiftUI.View into a reference-type view-model, effectively diminishing the View to merely encapsulate a body function. This transformation not only hampers SwiftUI’s native state management but also renders native property wrappers like @Environment, @AppStorage, @Query, etc., unusable within the view-model class.
 
-MVVM practitioners just want to test their VM even though it broke fundamentals of SwiftUI. Why test it? Its broken, there is nothing to test.
+Additionally, MVVM proponents typically focus on extensively testing these view-models, yet they frequently overlook testing the body function, a critical piece in ensuring SwiftUI views behave as intended. Why test something that strays from the framework’s design?
 
-And who will test the body function? MVVM practitioners simply do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excuse that views should not be tested.
+Apple intentionally embraced value types for their safe and encapsulated nature. And so, the decision by MVVM enthusiasts to separate the view-model from the “view,” seems unnecessary, especially when such a physical view may not exist and when protocol-oriented programming already ensures decoupling.
 
-# Testing SwiftUI.View body using third party
-
-Since SwiftUI.View is a value with a body function. We SHOULD test the body function. We need to test if the body correctly maps the state to the resulting SwiftUI.View.
-To do that we may use ViewInspector.
+Moreover, why concentrate on testing the view-model rather than the model itself? Disentangling the view-model from a speculative view appears counterproductive, especially when the view-in-question never physically manifests.
 
 # Testing SwiftUI.View natively as a view-model
 
-We can easily implement testing of the model part of the SwiftUI.View. All we need to do is to "host" the SwiftUI.View so that @State can be installed into view hierarchy.
-Next, we need to notify the testing framework that State is installed. We do that with PreferenceKey and setting the "self" that is our model into that key.
-```
+Testing the model aspect of a SwiftUI.View is straightforward. We “host” the SwiftUI.View to initialize @State in the view hierarchy, then notify the testing framework using a PreferenceKey that sets the model:
+```swift
 extension View {
     func viewInspectorPreference<T>(_ t: T) -> some View {
         preference(key: ViewInspectorPreferenceKey<T>.self, value: .init(value: t))
     }
 }
 ```
-apply modifier inside the body (we need only this one line in production code):
-```
+Incorporate this modifier within the body:
+```swift
 .viewInspectorPreference(self)
 ```
-And then in the test observe it and install the view (in our testing code):
-```
+Then, in testing code:
+```swift
         ContentModel()
             .viewInspectorOnPreferenceChange { installedView in ... }
             .installView()
 ```
-All natively, no hacking, pure swift in few minutes of coding. MVVM now can burn in flames!
+All native, free of hacking, pure Swift in just a few minutes. Say farewell to the need for MVVM!
 
+# Testing SwiftUI.View body using ViewInspector
 
+We should indeed test the body function of SwiftUI.View, as it plays a crucial role in mapping the state to the resulting view. Verifying that the body function behaves correctly is essential for ensuring the desired behavior of our SwiftUI views.
+
+To accomplish this, one approach is to utilize tools like ViewInspector in combination with our native testing methodology. ViewInspector enables us to inspect and interact with the SwiftUI views, allowing us to assert that the state is correctly reflected in the view's output.
+
+By testing the body function, we can validate that the view is rendered as expected based on the provided state. This helps us identify and address any issues or discrepancies that may occur during the mapping process.
+
+In summary, testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting SwiftUI.View
+
+# Test results
+
+• This project provides methods to test a SwiftUI.View the same way we test a view-model, but without any need for external workarounds. It’s possible with minimal effort.
+• We include two example tests that reveal the shortcomings of the ObservableObject approach, suggesting it may not be entirely compatible with SwiftUI.
+• Notably, the view-model method adds an extra evaluation to the body function, which could be seen as a performance issue in MVVM setups.
+
+Understanding that SwiftUI.View is a protocol exclusive to value types, with the body dictating its manifestation, is crucial. This clarify what comprises a SwiftUI.View within its functional design.

@@ -7,25 +7,18 @@
 
 import SwiftUI
 @testable import testable_view_swiftui
-import ViewInspector
 import XCTest
 
-extension View {
-    func installView() {
-        let window = UIWindow()
-        window.rootViewController = UIHostingController(rootView: self)
-        window.makeKeyAndVisible()
-    }
-}
-
 final class testable_view_swiftuiTests: XCTestCase {
-    let window = UIWindow()
-
-    override func setUpWithError() throws {
-        window.makeKeyAndVisible()
+    override func setUp() {
+        NotificationCenter.viewInspectorCenter = NotificationCenter()
     }
-
-    func testContentViewModelView() throws {
+    
+    override func tearDown() {
+        NotificationCenter.viewInspectorCenter = nil
+    }
+    
+    func testContenModel() throws {
         var numberOfChanges = 0
         let exp = expectation(description: #function)
         ContentModel()
@@ -42,7 +35,7 @@ final class testable_view_swiftuiTests: XCTestCase {
                 default: XCTFail()
                 }
             }
-            .viewInspectorReceiveOnFirstAppear { (_: Text) in
+            .viewInspectorReceiveOnAppear { (_: Text) in
                 exp.fulfill()
             }
             .installView()
@@ -68,7 +61,7 @@ final class testable_view_swiftuiTests: XCTestCase {
                 default: XCTFail()
                 }
             }
-            .viewInspectorReceiveOnFirstAppear { (_: Text) in
+            .viewInspectorReceiveOnAppear { (_: Text) in
                 exp.fulfill()
             }
             .installView()
