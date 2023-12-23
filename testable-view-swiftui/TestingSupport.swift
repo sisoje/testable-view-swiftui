@@ -47,7 +47,13 @@ extension View {
         onAppear { NotificationCenter.default.viewInspectorPost(self) }
     }
 
-    func viewInspectorReceiveOnAppear<T>(_ block: @escaping (T) -> Void) -> some View {
-        onReceive(NotificationCenter.default.viewInspectorPublisher(), perform: block)
+    func viewInspectorReceiveOnFirstAppear<T>(_ block: @escaping (T) -> Void) -> some View {
+        onReceive(NotificationCenter.default.viewInspectorPublisher().first(), perform: block)
+    }
+
+    func installView() {
+        let window = UIWindow()
+        window.rootViewController = UIHostingController(rootView: self)
+        window.makeKeyAndVisible()
     }
 }

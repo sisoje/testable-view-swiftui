@@ -14,7 +14,7 @@ struct testable_view_swiftuiApp: App {
             if NSClassFromString("XCTestCase") != nil {
                 EmptyView()
             } else {
-                ContentView()
+                ContentModel()
             }
         }
     }
