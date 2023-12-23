@@ -80,7 +80,7 @@ To do that we may use ViewInspector.
 
 # Testing SwiftUI.View natively as a view-model
 
-We can easily implement testing of the (view-)model part of the SwiftUI.View. All we need to do is to "host" the SwiftUI.View so that @State can be installed into view hierarchy.
+We can easily implement testing of the model part of the SwiftUI.View. All we need to do is to "host" the SwiftUI.View so that @State can be installed into view hierarchy.
 Next, we need to notify the testing framework that State is installed. We do that with PreferenceKey and setting the "self" that is our model into that key.
 ```
 extension View {
@@ -99,6 +99,6 @@ And then in the test observe it and install the view (in our testing code):
             .viewInspectorOnPreferenceChange { installedView in ... }
             .installView()
 ```
-
+All natively, no hacking, pure swift in few minutes of coding. MVVM needs to burn in flames!
 
 
