@@ -7,10 +7,9 @@
 
 import SwiftUI
 
-@Observable
-class ContentViewModel {
-    var sheetShown = false
-    var counter = 0
+final class ContentViewModel: ObservableObject {
+    @Published var sheetShown = false
+    @Published var counter = 0
     func increase() { counter += 1 }
     func showSheet() { sheetShown.toggle() }
 }
