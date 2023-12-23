@@ -99,6 +99,6 @@ And then in the test observe it and install the view (in our testing code):
             .viewInspectorOnPreferenceChange { installedView in ... }
             .installView()
 ```
-All natively, no hacking, pure swift in few minutes of coding. MVVM needs to burn in flames!
+All natively, no hacking, pure swift in few minutes of coding. MVVM now can burn in flames!
 
 
