@@ -113,8 +113,8 @@ In summary, testing the body function using tools like ViewInspector, in conjunc
 
 # Test results
 
-• This project provides methods to test a SwiftUI.View the same way we test a view-model, but without any need for external workarounds. It’s possible with minimal effort.
-• We include two example tests that reveal the shortcomings of the ObservableObject approach, suggesting it may not be entirely compatible with SwiftUI.
-• Notably, the view-model method adds an extra evaluation to the body function, which could be seen as a performance issue in MVVM setups.
+- This project provides methods to test a SwiftUI.View the same way we test a view-model, but without any need for external workarounds. It’s possible with minimal effort.
+- We include two example tests that reveal the shortcomings of the ObservableObject approach, suggesting it may not be entirely compatible with SwiftUI.
+- Notably, the view-model method adds an extra evaluation to the body function, which could be seen as a performance issue in MVVM setups.
 
 Understanding that SwiftUI.View is a protocol exclusive to value types, with the body dictating its manifestation, is crucial. This clarify what comprises a SwiftUI.View within its functional design.
