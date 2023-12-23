@@ -111,10 +111,10 @@ By testing the body function, we can validate that the view is rendered as expec
 
 In summary, testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting SwiftUI.View
 
-# Test results
+# Test Analysis
 
-- This project provides methods to test a SwiftUI.View the same way we test a view-model, but without any need for external workarounds. It’s possible with minimal effort.
-- We include two example tests that reveal the shortcomings of the ObservableObject approach, suggesting it may not be entirely compatible with SwiftUI.
-- Notably, the view-model method adds an extra evaluation to the body function, which could be seen as a performance issue in MVVM setups.
+- The provided tests employ native SwiftUI inspection techniques to validate the view and view-model interactions, demonstrating the feasibility of in-depth SwiftUI testing without resorting to complex workarounds.
+- Test findings spotlight a disparity in refresh cycles: the view-model approach necessitates three updates to the view’s body, whereas a direct SwiftUI approach requires only two, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
+- The additional rendering pass observed in MVVM may indicate a non-negligible performance overhead that could be critical in resource-intensive or highly dynamic interfaces.
 
-Understanding that SwiftUI.View is a protocol exclusive to value types, with the body dictating its manifestation, is crucial. This clarify what comprises a SwiftUI.View within its functional design.
+It is essential to recognize that SwiftUI views are defined as value types with a body property, determining their rendered content. This understanding is key when considering how MVVM patterns might introduce extra complexity into this rendering process.
