@@ -22,7 +22,7 @@ struct ViewInspectorPreferenceKey<T>: PreferenceKey {
 
 extension NotificationCenter {
     static var viewInspectorCenter: NotificationCenter?
-    
+
     private static func viewInspectorName<T>(_ t: T.Type) -> Notification.Name {
         Notification.Name(rawValue: "view_inspector_\(T.self)")
     }

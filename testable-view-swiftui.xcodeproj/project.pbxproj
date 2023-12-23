@@ -14,6 +14,7 @@
 		7E1378442B360A1D00C83B78 /* testable_view_swiftuiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378432B360A1D00C83B78 /* testable_view_swiftuiTests.swift */; };
 		7E13785D2B37032D00C83B78 /* TestingSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13785C2B37032D00C83B78 /* TestingSupport.swift */; };
 		7E13785F2B370A3800C83B78 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13785E2B370A3800C83B78 /* ContentModel.swift */; };
+		7E1378662B37A62700C83B78 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378652B37A62700C83B78 /* ContentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		7E13785E2B370A3800C83B78 /* ContentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentModel.swift; sourceTree = "<group>"; };
 		7E1378632B3790FC00C83B78 /* testable-view-swiftui.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "testable-view-swiftui.xctestplan"; sourceTree = "<group>"; };
 		7E1378642B37915700C83B78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7E1378652B37A62700C83B78 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				7E1378342B360A1B00C83B78 /* ContentView.swift */,
+				7E1378652B37A62700C83B78 /* ContentViewModel.swift */,
 				7E13785E2B370A3800C83B78 /* ContentModel.swift */,
 				7E1378322B360A1B00C83B78 /* testable_view_swiftuiApp.swift */,
 				7E13785C2B37032D00C83B78 /* TestingSupport.swift */,
@@ -215,6 +218,7 @@
 				7E1378352B360A1B00C83B78 /* ContentView.swift in Sources */,
 				7E1378332B360A1B00C83B78 /* testable_view_swiftuiApp.swift in Sources */,
 				7E13785F2B370A3800C83B78 /* ContentModel.swift in Sources */,
+				7E1378662B37A62700C83B78 /* ContentViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
