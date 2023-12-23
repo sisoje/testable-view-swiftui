@@ -1,7 +1,7 @@
 # Testable SwiftUI Views
 NOTE:
 - In this example I show you how to test the SwiftUI.View natively, the same way like you would test view-model, no hacking, no third party libs, all made in few minutes of coding.
-- The test shows how ObservableObject is not optimal approach
+- The test shows how ObservableObject view-model is not optimal approach. It basically makes no sense in SwiftUI.
 
 SwifUI.View is just a protocol that ANY value and ONLY value can conform to. It contains body function that evaluates to yet another SwiftUI.View. That is all we need to know about the SwiftUI.View.
 
