@@ -65,7 +65,7 @@ struct ContentView: View {
     }
 }
 ```
-Apple purposly used value type with body function extension, but MVVM practitioners decided to rip it apart, turn it into a rfeference type mess. Why? So that can test MVVM, really?
+Apple purposly used value type with body function extension, but MVVM practitioners decided to rip it apart, turn it into a reference type mess. Why? So that they can test VM, really?
 
 What do MVVM practitioners try to decouple here? As we see its already decoupled. In the process of view-model decoupling from some imaginary view that does not exist, MVVM practitioners broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
 
