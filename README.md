@@ -87,11 +87,11 @@ extension View {
     }
 }
 ```
-apply modifier inside the body:
+apply modifier inside the body (we need only this one line in production code):
 ```
 .viewInspectorPreference(self)
 ```
-And then in the test observe it and install the view:
+And then in the test observe it and install the view (in our testing code):
 ```
         ContentModel()
             .viewInspectorOnPreferenceChange { installedView in ... }
