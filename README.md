@@ -65,11 +65,13 @@ struct ContentView: View {
 ```
 Apple purposly coupled state and the body inside a value type, but MVVM practitioners decided to rip it apart, why? So that can test MVVM, really?
 
-In the process of implementing MVVM they broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
+Did apple really couple body and the logic? It did not! They followed Open-Closed principle, they just took the model (same as view-model) and extended it with a body function.
+
+So what do MVVM practitioners try to decouple here? In the process of decoupling some imaginary view from the view-model they broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
 
 MVVM practitioners just want to test their VM even though it broke fundamentals of SwiftUI. Why test it? Its broken, there is nothing to test.
 
-And who will test the body function? MVVM practitioners do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excuse that views should not be tested.
+And who will test the body function? MVVM practitioners simply do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excuse that views should not be tested.
 
 # Testing SwiftUI.View using third party
 
