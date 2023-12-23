@@ -3,9 +3,9 @@ NOTE:
 - In this example I show you how to test the SwiftUI.View natively, the same way like you would test view-model, no hacking, no third party libs, all made in 10 minutes of coding.
 - The test shows how ObservableObject is not optimal approach
 
-SwifUI.View is just a protocol that ANY value and ONLY value can conform to. It contains body function that evaluates to yet another SwiftUI.View. That is all we need to know about the SwiftUI.View.\
+SwifUI.View is just a protocol that ANY value and ONLY value can conform to. It contains body function that evaluates to yet another SwiftUI.View. That is all we need to know about the SwiftUI.View.
 
-That means SwiftUI.View is not a real view, it has no property of a real view that we can access, no frame, no color, nothing. So what REALLY is a SwiftUI.View?\
+That means SwiftUI.View is not a real view, it has no property of a real view that we can access, no frame, no color, nothing. So what REALLY is a SwiftUI.View?
 
 # Attempting MVVM in SwiftUI
 
@@ -64,16 +64,19 @@ struct ContentView: View {
 }
 ```
 Apple purposly coupled state and the body inside a value type, but MVVM practitioners decided to rip it apart, why? So that can test MVVM, really?
-In the process of implementing MVVM they broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
-MVVM practitioners just want to test their VM even though it broke fundamentals of SwiftUI. Why test it? Its broken, there is nothing to test...\
-And who will test the body function? MVVM practitioners do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excusre that views should not be tested.
 
-# Testing SwiftUI.View
+In the process of implementing MVVM they broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
+
+MVVM practitioners just want to test their VM even though it broke fundamentals of SwiftUI. Why test it? Its broken, there is nothing to test.
+
+And who will test the body function? MVVM practitioners do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excuse that views should not be tested.
+
+# Testing SwiftUI.View using third party
 
 Since SwiftUI.View is a value with a body function. We SHOULD test the body function. We need to test if the body correctly maps the state to the resulting SwiftUI.View.
 To do that we may use ViewInspector.
 
-# Testing SwiftUI.View as a view-model
+# Testing SwiftUI.View natively as a view-model
 
 We can easily implement testing of the (view-)model part of the SwiftUI.View. All we need to do is to "host" the SwiftUI.View so that @State can be installed into view hierarchy.
 Next, we need to notify the testing framework that State is installed. We do that with PreferenceKey and setting the "self" that is our model into that key.
