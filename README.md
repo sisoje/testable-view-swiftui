@@ -73,7 +73,7 @@ MVVM practitioners just want to test their VM even though it broke fundamentals 
 
 And who will test the body function? MVVM practitioners simply do not care! They ignore the fact that SwiftUI.View is not a view. They simply ignore the body function, with the excuse that views should not be tested.
 
-# Testing SwiftUI.View using third party
+# Testing SwiftUI.View body using third party
 
 Since SwiftUI.View is a value with a body function. We SHOULD test the body function. We need to test if the body correctly maps the state to the resulting SwiftUI.View.
 To do that we may use ViewInspector.
