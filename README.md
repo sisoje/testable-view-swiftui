@@ -45,6 +45,8 @@ extension ContentModel: View {
 ```
 It's clear that by conforming SwiftUI.View we basically just extend out ContentModel with a body function. It is basically the same as view-model with exception that it is a value type.
 
+Did Apple really couple "view" and the logic? They did not! They followed Open-Closed principle. They just took the model (which is practically the same as view-model) and extended it with a body function.
+
 # MVVM practitioners
 
 The view-model class is abused by MVVM practitioners and they make a SwiftUI.View like this:
@@ -64,8 +66,6 @@ struct ContentView: View {
 }
 ```
 Apple purposly coupled state and the body inside a value type, but MVVM practitioners decided to rip it apart, why? So that can test MVVM, really?
-
-Did apple really couple body and the logic? It did not! They followed Open-Closed principle, they just took the model (same as view-model) and extended it with a body function.
 
 So what do MVVM practitioners try to decouple here? In the process of decoupling some imaginary view from the view-model they broke the native state management and now all the native wrappers can not be used inside the view-model, such as: @Environment @AppStorage @Query and others.
 
