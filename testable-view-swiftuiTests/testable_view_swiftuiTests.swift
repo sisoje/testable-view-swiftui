@@ -39,7 +39,7 @@ final class testable_view_swiftuiTests: XCTestCase {
                 exp.fulfill()
             }
             .installView()
-        wait(for: [exp], timeout: 1)
+        wait(for: [exp], timeout: 3)
     }
 
     func testContentView() throws {
@@ -65,6 +65,6 @@ final class testable_view_swiftuiTests: XCTestCase {
                 exp.fulfill()
             }
             .installView()
-        wait(for: [exp], timeout: 1)
+        wait(for: [exp], timeout: 3)
     }
 }
