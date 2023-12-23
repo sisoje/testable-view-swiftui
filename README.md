@@ -45,7 +45,7 @@ extension ContentModel: View {
 ```
 It's clear that by conforming SwiftUI.View we basically just extend out ContentModel with a body function. It is basically the same as view-model with exception that it is a value type.
 
-Did Apple really couple "view" and the logic? They did not! They followed Open-Closed principle. They just took the model (which is practically the same as view-model) and extended it with a body function.
+Did Apple really couple "view" and the business logic? They did not! They followed Open-Closed principle. They just took the model (which is practically the same as view-model) and extended it with a body function.
 
 # MVVM practitioners
 
