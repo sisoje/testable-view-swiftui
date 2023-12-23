@@ -27,8 +27,10 @@ struct ContentModel {
 }
 ```
 One is a class, a reference type, and it can never conform to a SwiftUI.View.\
-The other is a struct, a value type, and we are going to conform it to a SwiftUI.View:
+The other is a struct, a value type, and we are going to conform it to a SwiftUI.View/
 
+# SwiftUI.View couplig/decoupling
+Native SwiftUI.View now looks like this:
 ```
 extension ContentModel: View {
     var body: some View {
@@ -46,6 +48,8 @@ extension ContentModel: View {
 It's clear that by conforming SwiftUI.View we basically just extend out ContentModel with a body function. It is basically the same as view-model with exception that it is a value type.
 
 Did Apple really couple "view" and the business logic? They did not! They followed Open-Closed principle. They just took the model (which is practically the same as view-model) and extended it with a body function.
+
+(Hard) decoupling is not always good. Once you decouple system into parts, then you need to glue parts back together to make system working. And that introduces some boilerplate mess. Apple did the right thing.
 
 # MVVM practitioners
 
