@@ -39,8 +39,16 @@ extension View {
         preference(key: ViewInspectorPreferenceKey<T>.self, value: .init(value: t))
     }
 
-    func viewInspectorOnPreferenceChange(_ block: @escaping (Self) -> Void) -> some View {
-        onPreferenceChange(ViewInspectorPreferenceKey<Self>.self) { block($0.value!) }
+    func viewInspectorOnPreferenceChange(_ block: @escaping (Self) throws -> Void) -> some View {
+        onPreferenceChange(ViewInspectorPreferenceKey<Self>.self) { pref in
+            DispatchQueue.main.async {
+                do {
+                    try block(pref.value!)
+                } catch {
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 
     func viewInspectorPostLifecycle() -> some View {

@@ -9,15 +9,6 @@
     }
   ],
   "defaultOptions" : {
-    "codeCoverage" : {
-      "targets" : [
-        {
-          "containerPath" : "container:testable-view-swiftui.xcodeproj",
-          "identifier" : "7E13782E2B360A1B00C83B78",
-          "name" : "testable-view-swiftui"
-        }
-      ]
-    },
     "targetForVariableExpansion" : {
       "containerPath" : "container:testable-view-swiftui.xcodeproj",
       "identifier" : "7E13782E2B360A1B00C83B78",

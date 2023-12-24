@@ -5,12 +5,16 @@
 //  Created by Lazar Otasevic on 24.12.23..
 //
 
-import XCTest
 import Combine
 @testable import testable_view_swiftui
+import XCTest
 
 class BaseTest: XCTestCase {
     var cancellables: Set<AnyCancellable> = []
+
+    override func setUp() {
+        ViewinspectorHosting.shared.view = nil
+    }
 
     override func tearDown() {
         cancellables.removeAll()

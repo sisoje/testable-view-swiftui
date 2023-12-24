@@ -15,7 +15,6 @@ final class NativeBusinessLogicTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
-            XCTAssertEqual(numberOfChanges, 2)
             exp.fulfill()
         }
         .store(in: &cancellables)
@@ -35,6 +34,7 @@ final class NativeBusinessLogicTests: BaseTest {
             }
 
         wait(for: [exp], timeout: 3)
+        XCTAssertEqual(numberOfChanges, 2)
     }
 
     func testContentView() throws {
@@ -42,7 +42,6 @@ final class NativeBusinessLogicTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
-            XCTAssertEqual(numberOfChanges, 3)
             exp.fulfill()
         }
         .store(in: &cancellables)
@@ -63,5 +62,6 @@ final class NativeBusinessLogicTests: BaseTest {
             }
 
         wait(for: [exp], timeout: 3)
+        XCTAssertEqual(numberOfChanges, 3)
     }
 }

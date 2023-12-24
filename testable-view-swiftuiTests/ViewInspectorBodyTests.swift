@@ -16,7 +16,6 @@ final class ViewInspectorBodyTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
-            XCTAssertEqual(numberOfChanges, 2)
             exp.fulfill()
         }
         .store(in: &cancellables)
@@ -27,19 +26,18 @@ final class ViewInspectorBodyTests: BaseTest {
                 switch numberOfChanges {
                 case 1:
                     XCTAssertEqual(view.counter, 0)
-                    let button = try? view.inspect().find(button: "Increase")
-                    XCTAssertNotNil(button)
-                    try? button?.tap()
+                    let button = try view.inspect().find(button: "Increase")
+                    try button.tap()
                 case 2:
                     XCTAssertEqual(view.counter, 1)
-                    let button = try? view.inspect().find(button: "Show sheet")
-                    XCTAssertNotNil(button)
-                    try? button?.tap()
+                    let button = try view.inspect().find(button: "Show sheet")
+                    try button.tap()
                 default: XCTFail()
                 }
             }
 
         wait(for: [exp], timeout: 3)
+        XCTAssertEqual(numberOfChanges, 2)
     }
 
     func testContentView() throws {
@@ -47,7 +45,6 @@ final class ViewInspectorBodyTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
-            XCTAssertEqual(numberOfChanges, 3)
             exp.fulfill()
         }
         .store(in: &cancellables)
@@ -72,5 +69,6 @@ final class ViewInspectorBodyTests: BaseTest {
             }
 
         wait(for: [exp], timeout: 3)
+        XCTAssertEqual(numberOfChanges, 3)
     }
 }
