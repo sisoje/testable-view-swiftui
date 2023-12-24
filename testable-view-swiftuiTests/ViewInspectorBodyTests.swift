@@ -16,28 +16,33 @@ final class ViewInspectorBodyTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
+            XCTAssertEqual(numberOfChanges, 2)
             exp.fulfill()
         }
         .store(in: &cancellables)
 
         ViewinspectorHosting.shared.view = ContentModel()
             .viewInspectorOnPreferenceChange { view in
-                numberOfChanges += 1
-                switch numberOfChanges {
-                case 1:
-                    XCTAssertEqual(view.counter, 0)
-                    let button = try view.inspect().find(button: "Increase")
-                    try button.tap()
-                case 2:
-                    XCTAssertEqual(view.counter, 1)
-                    let button = try view.inspect().find(button: "Show sheet")
-                    try button.tap()
-                default: break
+                do {
+                    numberOfChanges += 1
+                    switch numberOfChanges {
+                    case 1:
+                        XCTAssertEqual(view.counter, 0)
+                        let button = try view.inspect().find(button: "Increase")
+                        try button.tap()
+                    case 2:
+                        XCTAssertEqual(view.counter, 1)
+                        let button = try view.inspect().find(button: "Show sheet")
+                        try button.tap()
+                    default: break
+                    }
+                } catch {
+                    XCTFail(error.localizedDescription)
+                    exp.fulfill()
                 }
             }
 
         wait(for: [exp], timeout: 3)
-        XCTAssertEqual(numberOfChanges, 2)
     }
 
     func testContentView() throws {
@@ -45,29 +50,32 @@ final class ViewInspectorBodyTests: BaseTest {
 
         let exp = expectation(description: "Sheet expectation")
         NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
+            XCTAssertEqual(numberOfChanges, 3)
             exp.fulfill()
         }
         .store(in: &cancellables)
 
         ViewinspectorHosting.shared.view = ContentView()
             .viewInspectorOnPreferenceChange { view in
-                numberOfChanges += 1
-                switch numberOfChanges {
-                case 1:
-                    XCTAssertEqual(view.vm.counter, 0)
-                    let button = try? view.inspect().find(button: "Increase")
-                    XCTAssertNotNil(button)
-                    try? button?.tap()
-                case 2:
-                    XCTAssertEqual(view.vm.counter, 1)
-                    let button = try? view.inspect().find(button: "Show sheet")
-                    XCTAssertNotNil(button)
-                    try? button?.tap()
-                default: break
+                do {
+                    numberOfChanges += 1
+                    switch numberOfChanges {
+                    case 1:
+                        XCTAssertEqual(view.vm.counter, 0)
+                        let button = try view.inspect().find(button: "Increase")
+                        try button.tap()
+                    case 2:
+                        XCTAssertEqual(view.vm.counter, 1)
+                        let button = try view.inspect().find(button: "Show sheet")
+                        try button.tap()
+                    default: break
+                    }
+                } catch {
+                    XCTFail(error.localizedDescription)
+                    exp.fulfill()
                 }
             }
 
         wait(for: [exp], timeout: 3)
-        XCTAssertEqual(numberOfChanges, 3)
     }
 }
