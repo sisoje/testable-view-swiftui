@@ -5,19 +5,11 @@
 //  Created by Lazar Otasevic on 22.12.23..
 //
 
-import Combine
 import SwiftUI
 @testable import testable_view_swiftui
 import XCTest
 
-final class ViewTests: XCTestCase {
-    var cancellables: Set<AnyCancellable> = []
-
-    override func tearDown() {
-        cancellables.removeAll()
-        ViewinspectorHosting.shared.view = nil
-    }
-
+final class NativeBusinessLogicTests: BaseTest {
     func testContenModel() throws {
         var numberOfChanges = 0
 
