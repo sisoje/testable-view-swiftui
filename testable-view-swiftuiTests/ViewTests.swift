@@ -5,26 +5,32 @@
 //  Created by Lazar Otasevic on 22.12.23..
 //
 
+import Combine
 import SwiftUI
 @testable import testable_view_swiftui
 import XCTest
 
-final class testable_view_swiftuiTests: XCTestCase {
-    override func setUp() {
-        NotificationCenter.viewInspectorCenter = NotificationCenter()
-    }
+final class ViewTests: XCTestCase {
+    var cancellables: Set<AnyCancellable> = []
 
     override func tearDown() {
-        NotificationCenter.viewInspectorCenter = nil
+        cancellables.removeAll()
+        ViewinspectorHosting.shared.view = nil
     }
 
     func testContenModel() throws {
         var numberOfChanges = 0
-        let exp = expectation(description: #function)
-        ContentModel()
+
+        let exp = expectation(description: "Sheet expectation")
+        NotificationCenter.viewInspectorCenter?.viewInspectorPublisher().sink { (_: Text) in
+            XCTAssertEqual(numberOfChanges, 2)
+            exp.fulfill()
+        }
+        .store(in: &cancellables)
+
+        ViewinspectorHosting.shared.view = ContentModel()
             .viewInspectorOnPreferenceChange { view in
                 numberOfChanges += 1
-                print("Number of changes \(numberOfChanges)")
                 switch numberOfChanges {
                 case 1:
                     XCTAssertEqual(view.counter, 0)
@@ -35,20 +41,23 @@ final class testable_view_swiftuiTests: XCTestCase {
                 default: XCTFail()
                 }
             }
-            .viewInspectorReceiveOnAppear { (_: Text) in
-                exp.fulfill()
-            }
-            .installView()
+
         wait(for: [exp], timeout: 3)
     }
 
     func testContentView() throws {
         var numberOfChanges = 0
-        let exp = expectation(description: #function)
-        ContentView()
+
+        let exp = expectation(description: "Sheet expectation")
+        NotificationCenter.viewInspectorCenter?.viewInspectorPublisher().sink { (_: Text) in
+            XCTAssertEqual(numberOfChanges, 3)
+            exp.fulfill()
+        }
+        .store(in: &cancellables)
+
+        ViewinspectorHosting.shared.view = ContentView()
             .viewInspectorOnPreferenceChange { view in
                 numberOfChanges += 1
-                print("Number of changes \(numberOfChanges)")
                 switch numberOfChanges {
                 case 1:
                     XCTAssertEqual(view.vm.counter, 0)
@@ -60,10 +69,7 @@ final class testable_view_swiftuiTests: XCTestCase {
                 default: XCTFail()
                 }
             }
-            .viewInspectorReceiveOnAppear { (_: Text) in
-                exp.fulfill()
-            }
-            .installView()
+
         wait(for: [exp], timeout: 3)
     }
 }

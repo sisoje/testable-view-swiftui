@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var vm = ContentViewModel()
+    @State var vm = ContentViewModel()
     var body: some View {
         VStack {
             Text("The counter value is \(vm.counter)")

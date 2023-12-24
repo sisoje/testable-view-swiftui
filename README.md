@@ -97,7 +97,6 @@ Then, in testing code:
 ```swift
         ContentModel()
             .viewInspectorOnPreferenceChange { installedView in ... }
-            .installView()
 ```
 All native, free of hacking, pure Swift in just a few minutes. Say farewell to the need for MVVM!
 
@@ -123,4 +122,4 @@ It is essential to recognize that SwiftUI views are defined as value types with 
 
 The ContentModel structure implements the SwiftUI View protocol and includes a sheet presentation controlled by the sheetShown Boolean state. The .sheet modifier is set to present a sheet when sheetShown is true. The content of the sheet includes a Text view with .viewInspectorPostOnAppear(), which posts a notification through a custom NotificationCenter when the sheet appears.
 
-In testing, an asynchronous expectation is set up to listen for this notification using .viewInspectorReceiveOnAppear. When the notification is received, indicating the Text view has appeared (and thus the sheet is presented), the expectation is fulfilled, confirming the sheet presentation logic works as intended. This test assures that the navigation flow to the sheet in the SwiftUI app occurs as expected, relying solely on notification handling rather than visual verification.
+In testing, an asynchronous expectation is set up to listen for this notification using .viewInspectorPublisher. When the notification is received, indicating the Sheet view has appeared (and thus the sheet is presented), the expectation is fulfilled, confirming the sheet presentation logic works as intended. This test assures that the navigation flow to the sheet in the SwiftUI app occurs as expected, relying solely on notification handling rather than visual verification.

@@ -8,13 +8,18 @@
 import Combine
 import SwiftUI
 
-struct ViewInspectorPreferenceKey<T>: PreferenceKey {
-    struct FalseEquatableValueWrapper: Equatable {
-        static func == (lhs: Self, rhs: Self) -> Bool { false }
-        var value: T?
-    }
+@Observable final class ViewinspectorHosting {
+    static let shared = ViewinspectorHosting()
+    var view: (any View)?
+}
 
-    static var defaultValue: FalseEquatableValueWrapper { FalseEquatableValueWrapper() }
+struct FalseEquatableValueWrapper<T>: Equatable {
+    static func == (lhs: Self, rhs: Self) -> Bool { false }
+    var value: T?
+}
+
+struct ViewInspectorPreferenceKey<T>: PreferenceKey {
+    static var defaultValue: FalseEquatableValueWrapper<T> { FalseEquatableValueWrapper() }
     static func reduce(value: inout Value, nextValue: () -> Value) { assertionFailure("this should not be called") }
 }
 
@@ -41,15 +46,5 @@ extension View {
 
     func viewInspectorPostOnAppear() -> some View {
         onAppear { NotificationCenter.viewInspectorCenter?.viewInspectorPost(self) }
-    }
-
-    func viewInspectorReceiveOnAppear<T>(_ block: @escaping (T) -> Void) -> some View {
-        onReceive(NotificationCenter.viewInspectorCenter!.viewInspectorPublisher(), perform: block)
-    }
-
-    func installView() {
-        let window = UIWindow()
-        window.rootViewController = UIHostingController(rootView: self)
-        window.makeKeyAndVisible()
     }
 }
