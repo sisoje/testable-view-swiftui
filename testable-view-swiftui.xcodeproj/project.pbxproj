@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7E1378332B360A1B00C83B78 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378322B360A1B00C83B78 /* App.swift */; };
+		7E1378332B360A1B00C83B78 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378322B360A1B00C83B78 /* Main.swift */; };
 		7E1378352B360A1B00C83B78 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378342B360A1B00C83B78 /* ContentView.swift */; };
 		7E1378372B360A1D00C83B78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1378362B360A1D00C83B78 /* Assets.xcassets */; };
 		7E13783A2B360A1D00C83B78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1378392B360A1D00C83B78 /* Preview Assets.xcassets */; };
@@ -15,6 +15,9 @@
 		7E13785D2B37032D00C83B78 /* TestingSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13785C2B37032D00C83B78 /* TestingSupport.swift */; };
 		7E13785F2B370A3800C83B78 /* ContentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13785E2B370A3800C83B78 /* ContentModel.swift */; };
 		7E1378662B37A62700C83B78 /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378652B37A62700C83B78 /* ContentViewModel.swift */; };
+		7E13788A2B3889B800C83B78 /* TestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378892B3889B800C83B78 /* TestApp.swift */; };
+		7E13788C2B3889D200C83B78 /* RealApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13788B2B3889D200C83B78 /* RealApp.swift */; };
+		7E13788E2B388A6D00C83B78 /* ContentModel+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13788D2B388A6D00C83B78 /* ContentModel+View.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +32,7 @@
 
 /* Begin PBXFileReference section */
 		7E13782F2B360A1B00C83B78 /* testable-view-swiftui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "testable-view-swiftui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E1378322B360A1B00C83B78 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		7E1378322B360A1B00C83B78 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		7E1378342B360A1B00C83B78 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7E1378362B360A1D00C83B78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1378392B360A1D00C83B78 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -40,6 +43,9 @@
 		7E1378632B3790FC00C83B78 /* testable-view-swiftui.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "testable-view-swiftui.xctestplan"; sourceTree = "<group>"; };
 		7E1378642B37915700C83B78 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7E1378652B37A62700C83B78 /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		7E1378892B3889B800C83B78 /* TestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestApp.swift; sourceTree = "<group>"; };
+		7E13788B2B3889D200C83B78 /* RealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealApp.swift; sourceTree = "<group>"; };
+		7E13788D2B388A6D00C83B78 /* ContentModel+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentModel+View.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +92,10 @@
 				7E1378342B360A1B00C83B78 /* ContentView.swift */,
 				7E1378652B37A62700C83B78 /* ContentViewModel.swift */,
 				7E13785E2B370A3800C83B78 /* ContentModel.swift */,
-				7E1378322B360A1B00C83B78 /* App.swift */,
+				7E13788D2B388A6D00C83B78 /* ContentModel+View.swift */,
+				7E1378322B360A1B00C83B78 /* Main.swift */,
+				7E1378892B3889B800C83B78 /* TestApp.swift */,
+				7E13788B2B3889D200C83B78 /* RealApp.swift */,
 				7E13785C2B37032D00C83B78 /* TestingSupport.swift */,
 				7E1378362B360A1D00C83B78 /* Assets.xcassets */,
 				7E1378382B360A1D00C83B78 /* Preview Content */,
@@ -216,9 +225,12 @@
 			files = (
 				7E13785D2B37032D00C83B78 /* TestingSupport.swift in Sources */,
 				7E1378352B360A1B00C83B78 /* ContentView.swift in Sources */,
-				7E1378332B360A1B00C83B78 /* App.swift in Sources */,
+				7E1378332B360A1B00C83B78 /* Main.swift in Sources */,
 				7E13785F2B370A3800C83B78 /* ContentModel.swift in Sources */,
+				7E13788E2B388A6D00C83B78 /* ContentModel+View.swift in Sources */,
 				7E1378662B37A62700C83B78 /* ContentViewModel.swift in Sources */,
+				7E13788A2B3889B800C83B78 /* TestApp.swift in Sources */,
+				7E13788C2B3889D200C83B78 /* RealApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
