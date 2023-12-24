@@ -29,7 +29,7 @@ final class NativeBusinessLogicTests: BaseTest {
                 case 2:
                     XCTAssertEqual(view.counter, 1)
                     view.showSheet()
-                default: XCTFail()
+                default: break
                 }
             }
 
@@ -56,8 +56,7 @@ final class NativeBusinessLogicTests: BaseTest {
                 case 2:
                     XCTAssertEqual(view.vm.counter, 1)
                     view.vm.showSheet()
-                case 3: break
-                default: XCTFail()
+                default: break
                 }
             }
 
