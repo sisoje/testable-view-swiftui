@@ -22,8 +22,10 @@ class BaseTest: XCTestCase {
 
     func waitForNextLoop() {
         let exp = expectation(description: "wait for next loop")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            exp.fulfill()
+        DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                exp.fulfill()
+            }
         }
         wait(for: [exp], timeout: 1)
     }
