@@ -13,11 +13,11 @@ final class testable_view_swiftuiTests: XCTestCase {
     override func setUp() {
         NotificationCenter.viewInspectorCenter = NotificationCenter()
     }
-    
+
     override func tearDown() {
         NotificationCenter.viewInspectorCenter = nil
     }
-    
+
     func testContenModel() throws {
         var numberOfChanges = 0
         let exp = expectation(description: #function)
@@ -56,8 +56,7 @@ final class testable_view_swiftuiTests: XCTestCase {
                 case 2:
                     XCTAssertEqual(view.vm.counter, 1)
                     view.vm.showSheet()
-                case 3:
-                    break
+                case 3: break
                 default: XCTFail()
                 }
             }

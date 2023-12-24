@@ -21,11 +21,11 @@ extension ContentModel: View {
             Button("Increase", action: increase)
             Button("Show sheet", action: showSheet)
         }
-        .viewInspectorPreference(self)
         .sheet(isPresented: $sheetShown) {
             Text("This is sheet")
                 .viewInspectorPostOnAppear()
         }
+        .viewInspectorPreference(self)
     }
 }
 

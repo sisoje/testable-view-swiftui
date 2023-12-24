@@ -15,24 +15,18 @@ struct ViewInspectorPreferenceKey<T>: PreferenceKey {
     }
 
     static var defaultValue: FalseEquatableValueWrapper { FalseEquatableValueWrapper() }
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        assertionFailure("this should not be called")
-    }
+    static func reduce(value: inout Value, nextValue: () -> Value) { assertionFailure("this should not be called") }
 }
 
 extension NotificationCenter {
     static var viewInspectorCenter: NotificationCenter?
 
-    private static func viewInspectorName<T>(_ t: T.Type) -> Notification.Name {
-        Notification.Name(rawValue: "view_inspector_\(T.self)")
-    }
-
     func viewInspectorPost<T>(_ v: T) {
-        post(name: Self.viewInspectorName(T.self), object: v)
+        post(name: .init(String(describing: T.self)), object: v)
     }
 
     func viewInspectorPublisher<T>() -> AnyPublisher<T, Never> {
-        publisher(for: Self.viewInspectorName(T.self)).map { $0.object as! T }.eraseToAnyPublisher()
+        publisher(for: .init(String(describing: T.self))).map { $0.object as! T }.eraseToAnyPublisher()
     }
 }
 

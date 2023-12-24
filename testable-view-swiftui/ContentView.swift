@@ -15,11 +15,11 @@ struct ContentView: View {
             Button("Increase", action: vm.increase)
             Button("Show sheet", action: vm.showSheet)
         }
-        .viewInspectorPreference(self)
         .sheet(isPresented: $vm.sheetShown) {
             Text("This is sheet")
                 .viewInspectorPostOnAppear()
         }
+        .viewInspectorPreference(self)
     }
 }
 
