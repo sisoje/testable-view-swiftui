@@ -23,15 +23,14 @@ struct ViewInspectorPreferenceKey<T>: PreferenceKey {
     static func reduce(value: inout Value, nextValue: () -> Value) { assertionFailure("this should not be called") }
 }
 
+extension Notification.Name {
+    static let viewInspectorAppear = Notification.Name("viewInspectorAppear")
+    static let viewInspectorDisappear = Notification.Name("viewInspectorDisappear")
+}
+
 extension NotificationCenter {
-    static var viewInspectorCenter: NotificationCenter?
-
-    func viewInspectorPost<T>(_ v: T) {
-        post(name: .init(String(describing: T.self)), object: v)
-    }
-
-    func viewInspectorPublisher<T>() -> AnyPublisher<T, Never> {
-        publisher(for: .init(String(describing: T.self))).map { $0.object as! T }.eraseToAnyPublisher()
+    func typedPublisher<T>(_ name: Notification.Name) -> AnyPublisher<T, Never> {
+        publisher(for: name).compactMap { $0.object as? T }.eraseToAnyPublisher()
     }
 }
 
@@ -44,7 +43,8 @@ extension View {
         onPreferenceChange(ViewInspectorPreferenceKey<Self>.self) { block($0.value!) }
     }
 
-    func viewInspectorPostOnAppear() -> some View {
-        onAppear { NotificationCenter.viewInspectorCenter?.viewInspectorPost(self) }
+    func viewInspectorPostLifecycle() -> some View {
+        onAppear { NotificationCenter.default.post(name: .viewInspectorAppear, object: self) }
+            .onDisappear { NotificationCenter.default.post(name: .viewInspectorDisappear, object: self) }
     }
 }

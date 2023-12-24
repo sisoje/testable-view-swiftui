@@ -18,7 +18,7 @@ struct ContentView: View {
         }
         .sheet(isPresented: $vm.sheetShown) {
             Text("This is sheet")
-                .viewInspectorPostOnAppear()
+                .viewInspectorPostLifecycle()
         }
         .viewInspectorPreference(self)
     }

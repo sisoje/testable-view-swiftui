@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct TestApp: App {
-    init() {
-        NotificationCenter.viewInspectorCenter = NotificationCenter()
-    }
     @State var vm = ViewinspectorHosting.shared
     var body: some Scene {
         WindowGroup {

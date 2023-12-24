@@ -22,7 +22,7 @@ final class ViewTests: XCTestCase {
         var numberOfChanges = 0
 
         let exp = expectation(description: "Sheet expectation")
-        NotificationCenter.viewInspectorCenter?.viewInspectorPublisher().sink { (_: Text) in
+        NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
             XCTAssertEqual(numberOfChanges, 2)
             exp.fulfill()
         }
@@ -49,7 +49,7 @@ final class ViewTests: XCTestCase {
         var numberOfChanges = 0
 
         let exp = expectation(description: "Sheet expectation")
-        NotificationCenter.viewInspectorCenter?.viewInspectorPublisher().sink { (_: Text) in
+        NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Text) in
             XCTAssertEqual(numberOfChanges, 3)
             exp.fulfill()
         }
