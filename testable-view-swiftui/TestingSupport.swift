@@ -51,7 +51,11 @@ extension View {
     }
 
     func viewInspectorPostLifecycle() -> some View {
-        onAppear { NotificationCenter.default.post(name: .viewInspectorAppear, object: self) }
-            .onDisappear { NotificationCenter.default.post(name: .viewInspectorDisappear, object: self) }
+        onAppear {
+            NotificationCenter.default.post(name: .viewInspectorAppear, object: self)
+        }
+        .onDisappear {
+            NotificationCenter.default.post(name: .viewInspectorDisappear, object: self)
+        }
     }
 }

@@ -16,7 +16,7 @@ extension ContentModel: View {
             Button("Show sheet", action: showSheet)
         }
         .sheet(isPresented: $sheetShown) {
-            Text("This is sheet")
+            Sheet()
                 .viewInspectorPostLifecycle()
         }
         .viewInspectorPreference(self)
