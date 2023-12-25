@@ -11,11 +11,7 @@ struct TestApp: App {
     @State private var vm = ViewinspectorHosting.shared
     var body: some Scene {
         WindowGroup {
-            if let v = vm.view {
-                AnyView(v)
-            } else {
-                EmptyView()
-            }
+            AnyView(vm.view)
         }
     }
 }

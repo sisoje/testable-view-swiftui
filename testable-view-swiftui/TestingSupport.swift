@@ -10,7 +10,7 @@ import SwiftUI
 
 @Observable final class ViewinspectorHosting {
     static let shared = ViewinspectorHosting()
-    var view: (any View)?
+    var view: any View = EmptyView()
 }
 
 struct FalseEquatableValueWrapper<T>: Equatable {
@@ -38,7 +38,7 @@ extension View {
     func viewInspectorPreference<T>(_ t: T) -> some View {
         preference(key: ViewInspectorPreferenceKey<T>.self, value: .init(value: t))
     }
-    
+
     func viewInspectorOnPreferenceChange(_ block: @escaping (Self) -> Void) -> some View {
         onPreferenceChange(ViewInspectorPreferenceKey<Self>.self) { pref in
             guard let v = pref.value else {

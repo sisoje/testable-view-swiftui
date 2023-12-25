@@ -8,23 +8,14 @@
 import Combine
 @testable import testable_view_swiftui
 import XCTest
+import SwiftUI
 
 class BaseTest: XCTestCase {
     var cancellables: Set<AnyCancellable> = []
 
-    override func setUp() {}
+    override func setUp() async throws {}
 
-    override func tearDown() {
+    override func tearDown() async throws {
         cancellables.removeAll()
-        ViewinspectorHosting.shared.view = nil
-        waitForNextLoop()
-    }
-
-    func waitForNextLoop() {
-        let exp = expectation(description: "wait for next loop")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1)
     }
 }
