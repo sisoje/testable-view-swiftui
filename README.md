@@ -9,7 +9,7 @@ This implies that `SwiftUI.View` isn't a traditional view. It lacks typical view
 
 # SwiftUI model vs MVVM view-model
 
-Anyone claiming how Apple coupled view and business logic is not completely correct. Apple just used View conformance on top of the model. That is not coupling. That is POP.
+Anyone claiming how Apple coupled view and business logic is wrong. Apple just used View conformance on top of the model. That is not coupling. That is POP.
 
 MVVM uses hard-decoupling which is more suitable for Java and other old-school languages.
 
