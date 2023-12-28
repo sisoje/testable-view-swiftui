@@ -179,7 +179,7 @@ ContentView: @dependencies changed.
 Sheet: @self changed.
 ```
 
-# Design flaw of MVVM
+# Design flaws of MVVM in SwiftUI
 
 - My biggest issue with MVVM is inability to use native property wrappers like @Environment, @AppStorage, @Query and others.
 - View-models are not composable, while SwiftUI models(views) are very easy to split and reuse. MVVM just leads us to massive views and massive view-models.
