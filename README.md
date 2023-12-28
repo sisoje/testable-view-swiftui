@@ -32,7 +32,7 @@ struct ContentModel {
 
 # Model conformance vs VM composition
 
-We can make two view variants, one is pure SwiftUI and the other is MVVM:
+We can make two view variants, one is pure SwiftUI and the other is MVVM. One uses conformance and the other uses composition.
 ```
 extension ContentModel: View {
     var body: some View {
