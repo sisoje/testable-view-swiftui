@@ -13,7 +13,6 @@ import XCTest
 @MainActor final class ViewInspectorBodyTests: XCTestCase {
     func testContenModel() async throws {
         ViewinspectorHosting.shared.view = ContentModel()
-
         for try await (index, view) in ContentModel.viewInspectorAsync().prefix(2) {
             switch index {
             case 0:
@@ -22,16 +21,14 @@ import XCTest
             case 1:
                 XCTAssertEqual(view.counter, 1)
                 try view.inspect().find(button: "Show sheet").tap()
+                for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
             default: break
             }
         }
-        
-        for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
     }
 
     func testContentView() async throws {
         ViewinspectorHosting.shared.view = ContentView()
-
         for try await (index, view) in ContentView.viewInspectorAsync().prefix(2) {
             switch index {
             case 0:
@@ -40,10 +37,9 @@ import XCTest
             case 1:
                 XCTAssertEqual(view.vm.counter, 1)
                 try view.inspect().find(button: "Show sheet").tap()
+                for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
             default: break
             }
         }
-        
-        for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
     }
 }
