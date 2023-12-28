@@ -1,4 +1,4 @@
-# Testable SwiftUI views
+# Testable SwiftUI views using async/await
 
 - This example demonstrates how to test any `SwiftUI.View` without hacks or third-party libraries, accomplished in just a few minutes of coding.
 - We compare SwiftUI and MVVM and show that the `Observable` view-model approach may not be the best fit for SwiftUI, as it doesn't align well with its paradigm.
