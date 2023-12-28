@@ -115,7 +115,7 @@ func testContentView() async throws {
 }
 ```
 
-# Testing `body` using ViewInspector
+# (Optional) Testing `body` using ViewInspector
 
 Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting `SwiftUI.View`.
 
