@@ -117,7 +117,7 @@ func testContentView() async throws {
 
 # Testing `body` using ViewInspector
 
-Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting SwiftUI.View.
+Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting `SwiftUI.View`.
 
 Tests are almost identical:
 ```
@@ -182,5 +182,7 @@ Sheet: @self changed.
 # Design flaw of MVVM
 
 My biggest issue with MVVM is inability to use native property wrappers like @Environment, @AppStorage, @Query and others.
+
+Another problem with MVVM is usage of reference types. Using `[weak self]` everywhere is so annoying and misuse can lead to reference cycles.
 
 Now that we know how to test "views" there is really no need to use MVVM.
