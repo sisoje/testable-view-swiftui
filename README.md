@@ -181,8 +181,8 @@ Sheet: @self changed.
 
 # Design flaw of MVVM
 
-My biggest issue with MVVM is inability to use native property wrappers like @Environment, @AppStorage, @Query and others.
-
-Another problem with MVVM is usage of reference types. Using `[weak self]` everywhere is so annoying and misuse can lead to reference cycles.
+- My biggest issue with MVVM is inability to use native property wrappers like @Environment, @AppStorage, @Query and others.
+- View-models are not composable, while SwiftUI models(views) are very easy to split and reuse. MVVM just leads us to massive views and massive view-models.
+- Another problem with MVVM is usage of reference types. Using `[weak self]` everywhere is so annoying and misuse can lead to reference cycles.
 
 Now that we know how to test "views" there is really no need to use MVVM.
