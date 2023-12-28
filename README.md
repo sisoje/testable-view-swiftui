@@ -3,7 +3,7 @@
 - This example demonstrates how to test any `SwiftUI.View` without hacks or third-party libraries, accomplished in just a few minutes of coding.
 - We compare SwiftUI and MVVM and show that the `Observable` view-model approach may not be the best fit for SwiftUI, as it doesn't align well with its paradigm.
 
-`SwiftUI.View` is a protocol that only value types can conform to, its centerpiece being the `body` function, which produces another `SwiftUI.View`. Understanding this is key to grasping the essence of `SwiftUI.View`.
+`SwiftUI.View` is a protocol that only value types can conform to, its centerpiece being the `body` property, which produces another `SwiftUI.View`. Understanding this is key to grasping the essence of `SwiftUI.View`.
 
 This implies that `SwiftUI.View` isn't a traditional view. It lacks typical view properties like frame or color. `SwiftUI.View` looks and acts more like a view-model.
 
