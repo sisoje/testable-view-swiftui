@@ -10,17 +10,15 @@ import SwiftUI
 struct ContentView: View {
     @State var vm = ContentViewModel()
     var body: some View {
+        let _ = assertViewInspectorBody()
         VStack {
-            Text("This is MVVM")
             Text("The counter value is \(vm.counter)")
             Button("Increase", action: vm.increase)
             Button("Show sheet", action: vm.showSheet)
         }
         .sheet(isPresented: $vm.sheetShown) {
             Sheet()
-                .viewInspectorPostLifecycle()
         }
-        .viewInspectorPreference(self)
     }
 }
 

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TestApp: App {
-    @State private var vm = ViewinspectorHosting.shared
+    @State private var hosting = ViewinspectorHosting.shared
     var body: some Scene {
         WindowGroup {
-            AnyView(vm.view)
+            AnyView(hosting.view)
         }
     }
 }

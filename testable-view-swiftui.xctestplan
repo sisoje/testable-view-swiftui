@@ -4,7 +4,8 @@
       "id" : "006E6665-2AD1-4D58-89A2-3318F0BB5D13",
       "name" : "Test Scheme Action",
       "options" : {
-
+        "defaultTestExecutionTimeAllowance" : 60,
+        "testTimeoutsEnabled" : true
       }
     }
   ],

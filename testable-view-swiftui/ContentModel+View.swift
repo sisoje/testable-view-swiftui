@@ -9,17 +9,15 @@ import SwiftUI
 
 extension ContentModel: View {
     var body: some View {
+        let _ = assertViewInspectorBody()
         VStack {
-            Text("This is pure SwiftUI")
             Text("The counter value is \(counter)")
             Button("Increase", action: increase)
             Button("Show sheet", action: showSheet)
         }
         .sheet(isPresented: $sheetShown) {
             Sheet()
-                .viewInspectorPostLifecycle()
         }
-        .viewInspectorPreference(self)
     }
 }
 

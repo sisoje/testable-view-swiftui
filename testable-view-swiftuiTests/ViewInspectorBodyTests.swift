@@ -10,72 +10,40 @@ import SwiftUI
 import ViewInspector
 import XCTest
 
-final class ViewInspectorBodyTests: BaseTest {
-    func testContenModel() throws {
-        var numberOfChanges = 0
-
-        let exp = expectation(description: "Sheet expectation")
-        NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Sheet) in
-            XCTAssertEqual(numberOfChanges, 2)
-            exp.fulfill()
-        }
-        .store(in: &cancellables)
-
+@MainActor final class ViewInspectorBodyTests: XCTestCase {
+    func testContenModel() async throws {
         ViewinspectorHosting.shared.view = ContentModel()
-            .viewInspectorOnPreferenceChange { view in
-                do {
-                    numberOfChanges += 1
-                    switch numberOfChanges {
-                    case 1:
-                        XCTAssertEqual(view.counter, 0)
-                        let button = try view.inspect().find(button: "Increase")
-                        try button.tap()
-                    case 2:
-                        XCTAssertEqual(view.counter, 1)
-                        let button = try view.inspect().find(button: "Show sheet")
-                        try button.tap()
-                    default: break
-                    }
-                } catch {
-                    XCTFail(error.localizedDescription)
-                    exp.fulfill()
-                }
-            }
 
-        wait(for: [exp], timeout: 3)
+        for try await (index, view) in ContentModel.viewInspectorAsync().prefix(2) {
+            switch index {
+            case 0:
+                XCTAssertEqual(view.counter, 0)
+                try view.inspect().find(button: "Increase").tap()
+            case 1:
+                XCTAssertEqual(view.counter, 1)
+                try view.inspect().find(button: "Show sheet").tap()
+            default: break
+            }
+        }
+        
+        for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
     }
 
-    func testContentView() throws {
-        var numberOfChanges = 0
-
-        let exp = expectation(description: "Sheet expectation")
-        NotificationCenter.default.typedPublisher(.viewInspectorAppear).sink { (_: Sheet) in
-            XCTAssertEqual(numberOfChanges, 3)
-            exp.fulfill()
-        }
-        .store(in: &cancellables)
-
+    func testContentView() async throws {
         ViewinspectorHosting.shared.view = ContentView()
-            .viewInspectorOnPreferenceChange { view in
-                do {
-                    numberOfChanges += 1
-                    switch numberOfChanges {
-                    case 1:
-                        XCTAssertEqual(view.vm.counter, 0)
-                        let button = try view.inspect().find(button: "Increase")
-                        try button.tap()
-                    case 2:
-                        XCTAssertEqual(view.vm.counter, 1)
-                        let button = try view.inspect().find(button: "Show sheet")
-                        try button.tap()
-                    default: break
-                    }
-                } catch {
-                    XCTFail(error.localizedDescription)
-                    exp.fulfill()
-                }
-            }
 
-        wait(for: [exp], timeout: 3)
+        for try await (index, view) in ContentView.viewInspectorAsync().prefix(2) {
+            switch index {
+            case 0:
+                XCTAssertEqual(view.vm.counter, 0)
+                try view.inspect().find(button: "Increase").tap()
+            case 1:
+                XCTAssertEqual(view.vm.counter, 1)
+                try view.inspect().find(button: "Show sheet").tap()
+            default: break
+            }
+        }
+        
+        for try await _ in Sheet.viewInspectorAsync().prefix(1) {}
     }
 }

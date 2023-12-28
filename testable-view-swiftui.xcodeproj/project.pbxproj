@@ -20,7 +20,6 @@
 		7E13788E2B388A6D00C83B78 /* ContentModel+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E13788D2B388A6D00C83B78 /* ContentModel+View.swift */; };
 		7E1378912B38C21B00C83B78 /* ViewInspector in Frameworks */ = {isa = PBXBuildFile; productRef = 7E1378902B38C21B00C83B78 /* ViewInspector */; };
 		7E1378932B38C73400C83B78 /* ViewInspectorBodyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378922B38C73400C83B78 /* ViewInspectorBodyTests.swift */; };
-		7E1378952B38C76000C83B78 /* BaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378942B38C76000C83B78 /* BaseTest.swift */; };
 		7E1378992B3995C000C83B78 /* Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1378982B3995C000C83B78 /* Sheet.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		7E13788B2B3889D200C83B78 /* RealApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealApp.swift; sourceTree = "<group>"; };
 		7E13788D2B388A6D00C83B78 /* ContentModel+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentModel+View.swift"; sourceTree = "<group>"; };
 		7E1378922B38C73400C83B78 /* ViewInspectorBodyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewInspectorBodyTests.swift; sourceTree = "<group>"; };
-		7E1378942B38C76000C83B78 /* BaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTest.swift; sourceTree = "<group>"; };
 		7E1378982B3995C000C83B78 /* Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,7 +121,6 @@
 		7E1378422B360A1D00C83B78 /* testable-view-swiftuiTests */ = {
 			isa = PBXGroup;
 			children = (
-				7E1378942B38C76000C83B78 /* BaseTest.swift */,
 				7E1378432B360A1D00C83B78 /* NativeBusinessLogicTests.swift */,
 				7E1378922B38C73400C83B78 /* ViewInspectorBodyTests.swift */,
 			);
@@ -253,7 +250,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E1378442B360A1D00C83B78 /* NativeBusinessLogicTests.swift in Sources */,
-				7E1378952B38C76000C83B78 /* BaseTest.swift in Sources */,
 				7E1378932B38C73400C83B78 /* ViewInspectorBodyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
