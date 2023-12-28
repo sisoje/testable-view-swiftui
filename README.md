@@ -64,7 +64,7 @@ struct ContentView: View {
 }
 ```
 
-# Native async testing
+# Native async/await testing
 
 ### App hosting
 
