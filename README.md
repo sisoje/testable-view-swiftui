@@ -7,9 +7,9 @@
 
 `SwiftUI.View` is just a protocol that only value types can conform to, its centerpiece being the `body` property, which produces another `SwiftUI.View`.
 
-This implies that `SwiftUI.View` isn't a traditional view. It lacks typical view properties like frame or color. `SwiftUI.View` looks and acts more like a view-model.
+It lacks typical view properties like frame or color. This implies that `SwiftUI.View` isn't a traditional view.
 
-Understanding this is key to grasping the essence of `SwiftUI.View`.
+`SwiftUI.View` looks and acts more like a view-model. Understanding this is key to grasping the essence of `SwiftUI.View`.
 
 # SwiftUI model vs MVVM view-model
 
@@ -87,10 +87,15 @@ struct TestApp: App {
     }
 }
 ```
+### Body evaluation notifications
+
+We need to notify the test function that body evaluation happened. To achieve this is we add `let _ = assertViewInspectorBody()` as the first line of the body.
+
+**NOTE: Assertion does not evaluate in release!**
 
 ### Tests
 
-We can test both pure SwiftUI and MVVM versions in the same way, no hacking, no third party libs.
+We can test both SwiftUI and MVVM versions in the same way, no hacking, no third party libs.
 
 We receive body-evaluation index and the view itself from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
 ```
