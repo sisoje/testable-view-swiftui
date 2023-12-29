@@ -164,7 +164,9 @@ func testContentView() async throws {
 
 # Body evaluations during the test
 
-Test findings spotlight a disparity in body evaluations: the view-model approach necessitates more updates to the view’s body, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
+Test findings spotlight a disparity in number of body evaluations.
+
+MVVM approach necessitates more evaluations of the view’s body, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
 
 ### 7 body evaluations using SwiftUI
 ```
