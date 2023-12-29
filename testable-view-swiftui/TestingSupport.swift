@@ -27,7 +27,7 @@ extension View {
     private static var viewInspectorBody: Notification.Name { Notification.Name("viewInspectorBody") }
     
     func assertViewInspectorBody() {
-        assert(Self._printChanges() == () && NotificationCenter.default.post(name: Self.viewInspectorBody, object: self) == ())
+        assert(Self._printChanges() == NotificationCenter.default.post(name: Self.viewInspectorBody, object: self))
     }
 
     static func viewInspectorAsync() -> AsyncPublisher<AnyPublisher<(Int, Self), Never>> {
