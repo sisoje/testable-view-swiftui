@@ -1,17 +1,23 @@
 # Testable SwiftUI views using async/await
 
+### NOTE: All the boilerplate code you need is in TestingSupport.swift and it has 30 lines of code.
+
 - This example demonstrates how to test any `SwiftUI.View` without hacks or third-party libraries, accomplished in just a few minutes of coding.
 - We compare SwiftUI and MVVM and show that the `Observable` view-model approach may not be the best fit for SwiftUI, as it doesn't align well with its paradigm.
 
-`SwiftUI.View` is a protocol that only value types can conform to, its centerpiece being the `body` property, which produces another `SwiftUI.View`. Understanding this is key to grasping the essence of `SwiftUI.View`.
+`SwiftUI.View` is just a protocol that only value types can conform to, its centerpiece being the `body` property, which produces another `SwiftUI.View`.
 
 This implies that `SwiftUI.View` isn't a traditional view. It lacks typical view properties like frame or color. `SwiftUI.View` looks and acts more like a view-model.
+
+Understanding this is key to grasping the essence of `SwiftUI.View`.
 
 # SwiftUI model vs MVVM view-model
 
 Anyone claiming how Apple coupled view and business logic is wrong. Apple just used View conformance on top of the model. That is not coupling. That is POP.
 
-MVVM uses hard-decoupling which is more suitable for Java and other old-school languages.
+In SwiftUI it is up to you what goes to model and what goes to View conformance extension. Don't blame Apple if your code is entangled.
+
+MVVM uses **HARD** decoupling which is more suitable for Java and other old-school languages.
 
 We start with two similar implementations of our business logic:
 ```
@@ -32,7 +38,7 @@ struct ContentModel {
 
 # Model conformance vs VM composition
 
-We can make two view variants, one is pure SwiftUI and the other is MVVM. One uses conformance and the other uses composition.
+We can make two view variants, one is SwiftUI and the other is MVVM. One uses conformance and the other uses composition.
 ```
 extension ContentModel: View {
     var body: some View {
@@ -68,10 +74,12 @@ struct ContentView: View {
 
 ### App hosting
 
-The key for view testing is to host the View in some App. Its very simple:
+The key for view testing is to host the View in some App.
+
+Shockingly, we do use Observable class because we need to share state between the main-target and the test-target:
 ```
 struct TestApp: App {
-    @State private var hosting = ViewinspectorHosting.shared // for shared state we do use @Observable class
+    @State private var hosting = ViewinspectorHosting.shared
     var body: some Scene {
         WindowGroup {
             AnyView(hosting.view)
@@ -82,7 +90,9 @@ struct TestApp: App {
 
 ### Tests
 
-We can test both pure SwiftUI and MVVM versions in the same way, no hacking, no third party libs, simple:
+We can test both pure SwiftUI and MVVM versions in the same way, no hacking, no third party libs.
+
+We receive body-evaluation index and the view itself from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
 ```
 func testContenModel() async throws {
     ViewinspectorHosting.shared.view = ContentModel()
@@ -115,9 +125,9 @@ func testContentView() async throws {
 }
 ```
 
-# (Optional) Testing `body` using ViewInspector
+# (Optional) Testing using ViewInspector
 
-Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to ensure the accurate mapping of state to the resulting `SwiftUI.View`.
+Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to interact with SwiftUI elements and to verify their values with each interaction.
 
 Tests are almost identical:
 ```
@@ -152,11 +162,11 @@ func testContentView() async throws {
 }
 ```
 
-# Test Analysis
+# Body evaluations during the test
 
-Test findings spotlight a disparity in refresh cycles: the view-model approach necessitates more updates to the view’s body, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
+Test findings spotlight a disparity in body evaluations: the view-model approach necessitates more updates to the view’s body, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
 
-### Body evaluations using pure SwiftUI
+### 7 body evaluations using SwiftUI
 ```
 ContentModel: @self, @identity, _sheetShown, _counter changed.
 ContentModel: unchanged.
@@ -167,7 +177,7 @@ ContentModel: unchanged.
 Sheet: @self changed.
 ```
 
-### Body evaluations using MVVM
+### 8 body evaluations using MVVM
 ```
 ContentView: @self, @identity, _vm changed.
 ContentView: unchanged.
@@ -182,7 +192,7 @@ Sheet: @self changed.
 # Design flaws of MVVM in SwiftUI
 
 - My biggest issue with MVVM is inability to use native property wrappers like @Environment, @AppStorage, @Query and others.
-- View-models are not composable, while SwiftUI models(views) are very easy to split and reuse. MVVM just leads us to massive views and massive view-models.
+- View-models are not composable, while SwiftUI models(views) are very easy to split and reuse. MVVM just leads us to massive views and massive view-models. Its harder to split to smaller components. You need double amount of work to split them. You need to split VM and the View each on its own.
 - Another problem with MVVM is usage of reference types. Using `[weak self]` everywhere is so annoying and misuse can lead to reference cycles.
 
 Now that we know how to test "views" there is really no need to use MVVM.
