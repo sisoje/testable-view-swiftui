@@ -91,7 +91,7 @@ struct TestApp: App {
 
 We need to notify the test function that body evaluation happened. To achieve this is we add `let _ = assert(bodyAssertion)` as the first line of the body.
 
-**NOTE: Assertion does not evaluate in release!**
+**NOTE: Assertion does not evaluate in release! We dont need #if DEBUG ...**
 
 ### Tests
 
