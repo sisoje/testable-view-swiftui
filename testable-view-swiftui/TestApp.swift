@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TestApp: App {
-    @State private var hosting = ViewinspectorHosting.shared
+    @State private var hosting = AnyViewHosting.shared
     var body: some Scene {
         WindowGroup {
             AnyView(hosting.view)

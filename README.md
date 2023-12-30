@@ -42,7 +42,7 @@ We can make two view variants, one is SwiftUI and the other is MVVM. One uses co
 ```
 extension ContentModel: View {
     var body: some View {
-        let _ = assert(bodyAssertion) // this is the line for testing support
+        let _ = assert(bodyAssertion) // this is the only line in the view for testing support
         VStack {
             Text("The counter value is \(counter)")
             Button("Increase", action: increase)
@@ -57,7 +57,7 @@ extension ContentModel: View {
 struct ContentView: View {
     @State var vm = ContentViewModel()
     var body: some View {
-        let _ = assert(bodyAssertion) // this is the line for testing support
+        let _ = assert(bodyAssertion) // this is the only line in the view for testing support
         VStack {
             Text("The counter value is \(vm.counter)")
             Button("Increase", action: vm.increase)
@@ -79,7 +79,7 @@ The key for view testing is to host the View in some App.
 Shockingly, we do use Observable class because we need to share state between the main-target and the test-target:
 ```
 struct TestApp: App {
-    @State private var hosting = ViewinspectorHosting.shared
+    @State private var hosting = AnyViewHosting.shared
     var body: some Scene {
         WindowGroup {
             AnyView(hosting.view)
@@ -89,7 +89,7 @@ struct TestApp: App {
 ```
 ### Body evaluation notifications
 
-We need to notify the test function that body evaluation happened. To achieve this is we add `let _ = assertViewInspectorBody()` as the first line of the body.
+We need to notify the test function that body evaluation happened. To achieve this is we add `let _ = assert(bodyAssertion)` as the first line of the body.
 
 **NOTE: Assertion does not evaluate in release!**
 
@@ -100,8 +100,8 @@ We can test both SwiftUI and MVVM versions in the same way, no hacking, no third
 We receive body-evaluation index and the view itself from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
 ```
 func testContenModel() async throws {
-    ViewinspectorHosting.shared.view = ContentModel()
-    for try await (index, view) in ContentModel.viewInspectorAsync().prefix(2) {
+    AnyViewHosting.shared.view = ContentModel()
+    for try await (index, view) in ContentModel.bodyEvaluationsPublisher().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.counter, 0)
@@ -115,8 +115,8 @@ func testContenModel() async throws {
 }
 
 func testContentView() async throws {
-    ViewinspectorHosting.shared.view = ContentView()
-    for try await (index, view) in ContentView.viewInspectorAsync().prefix(2) {
+    AnyViewHosting.shared.view = ContentView()
+    for try await (index, view) in ContentView.bodyEvaluationsPublisher().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.vm.counter, 0)
@@ -137,8 +137,8 @@ Testing the body function using tools like ViewInspector, in conjunction with ou
 Tests are almost identical:
 ```
 func testContenModel() async throws {
-    ViewinspectorHosting.shared.view = ContentModel()
-    for try await (index, view) in ContentModel.viewInspectorAsync().prefix(2) {
+    AnyViewHosting.shared.view = ContentModel()
+    for try await (index, view) in ContentModel.bodyEvaluationsPublisher().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.counter, 0)
@@ -152,8 +152,8 @@ func testContenModel() async throws {
 }
 
 func testContentView() async throws {
-    ViewinspectorHosting.shared.view = ContentView()
-    for try await (index, view) in ContentView.viewInspectorAsync().prefix(2) {
+    AnyViewHosting.shared.view = ContentView()
+    for try await (index, view) in ContentView.bodyEvaluationsPublisher().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.vm.counter, 0)

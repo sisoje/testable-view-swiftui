@@ -8,8 +8,8 @@
 import Combine
 import SwiftUI
 
-@Observable final class ViewinspectorHosting {
-    static let shared = ViewinspectorHosting()
+@Observable final class AnyViewHosting {
+    static let shared = AnyViewHosting()
     var view: any View = EmptyView()
 }
 
@@ -24,17 +24,17 @@ extension Publisher {
 }
 
 extension View {
-    private static var viewInspectorBody: Notification.Name { Notification.Name("viewInspectorBody") }
+    private static var bodyEvaluationNotification: Notification.Name { Notification.Name("bodyEvaluationNotification") }
     
     var bodyAssertion: Bool {
         Self._printChanges()
-        NotificationCenter.default.post(name: Self.viewInspectorBody, object: self)
+        NotificationCenter.default.post(name: Self.bodyEvaluationNotification, object: self)
         return true
     }
 
-    static func viewInspectorAsync() -> AsyncPublisher<AnyPublisher<(Int, Self), Never>> {
+    static func bodyEvaluationsPublisher() -> AsyncPublisher<AnyPublisher<(Int, Self), Never>> {
         NotificationCenter.default
-            .publisher(for: viewInspectorBody)
+            .publisher(for: bodyEvaluationNotification)
             .compactMap { $0.object as? Self }
             .enumerated().values
     }
