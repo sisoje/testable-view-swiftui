@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State var vm = ContentViewModel()
     var body: some View {
-        let _ = assertViewInspectorBody()
+        let _ = assert(bodyAssertion)
         VStack {
             Text("The counter value is \(vm.counter)")
             Button("Increase", action: vm.increase)

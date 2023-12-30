@@ -42,7 +42,7 @@ We can make two view variants, one is SwiftUI and the other is MVVM. One uses co
 ```
 extension ContentModel: View {
     var body: some View {
-        let _ = assertViewInspectorBody() // this is the line for testing support
+        let _ = assert(bodyAssertion) // this is the line for testing support
         VStack {
             Text("The counter value is \(counter)")
             Button("Increase", action: increase)
@@ -57,7 +57,7 @@ extension ContentModel: View {
 struct ContentView: View {
     @State var vm = ContentViewModel()
     var body: some View {
-        let _ = assertViewInspectorBody() // this is the line for testing support
+        let _ = assert(bodyAssertion) // this is the line for testing support
         VStack {
             Text("The counter value is \(vm.counter)")
             Button("Increase", action: vm.increase)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Sheet: View {
     var body: some View {
-        let _ = assertViewInspectorBody()
+        let _ = assert(bodyAssertion)
         Text("This is sheet")
     }
 }
