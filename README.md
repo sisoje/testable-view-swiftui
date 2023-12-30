@@ -130,11 +130,11 @@ func testContentView() async throws {
 }
 ```
 
-# (Optional) Testing using ViewInspector
+# Testing UI interactions using ViewInspector
 
 Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to interact with SwiftUI elements and to verify their values with each interaction.
 
-Tests are identical, so here is the switch part:
+Tests are identical for both SwiftUI and MVVM:
 ```
 switch index {
 case 0:
@@ -147,33 +147,23 @@ default: break
 }
 ```
 
-# Body evaluations during the test
+# Body evaluations during the ViewInspector test
 
 Test findings spotlight a disparity in number of body evaluations.
 
 MVVM approach necessitates more evaluations of the view’s body, underscoring a potential inefficiency in how MVVM patterns integrate with SwiftUI’s rendering cycle.
 
-### 7 body evaluations using SwiftUI
+### 2 body evaluations using SwiftUI
 ```
 ContentModel: @self, @identity, _sheetShown, _counter changed.
-ContentModel: unchanged.
-ContentModel: unchanged.
 ContentModel: _counter changed.
-ContentModel: unchanged.
-ContentModel: unchanged.
-Sheet: @self changed.
 ```
 
-### 8 body evaluations using MVVM
+### 3 body evaluations using MVVM
 ```
 ContentView: @self, @identity, _vm changed.
-ContentView: unchanged.
-ContentView: unchanged.
 ContentView: @dependencies changed.
-ContentView: unchanged.
-ContentView: unchanged.
 ContentView: @dependencies changed.
-Sheet: @self changed.
 ```
 
 # Design flaws of MVVM in SwiftUI
