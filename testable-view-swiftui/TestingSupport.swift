@@ -32,7 +32,7 @@ extension View {
         return true
     }
 
-    static func bodyEvaluationsPublisher() -> AsyncPublisher<AnyPublisher<(Int, Self), Never>> {
+    static func bodyEvaluations() -> AsyncPublisher<AnyPublisher<(Int, Self), Never>> {
         NotificationCenter.default
             .publisher(for: bodyEvaluationNotification)
             .compactMap { $0.object as? Self }

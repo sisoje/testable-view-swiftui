@@ -13,15 +13,15 @@ import XCTest
 @MainActor final class ViewInspectorBodyTests: XCTestCase {
     func testContenModel() async throws {
         AnyViewHosting.shared.view = ContentModel()
-        for try await (index, view) in ContentModel.bodyEvaluationsPublisher().prefix(2) {
+        for try await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
-                XCTAssertEqual(view.counter, 0)
+                _ = try view.inspect().find(text: "The counter value is 0")
                 try view.inspect().find(button: "Increase").tap()
             case 1:
-                XCTAssertEqual(view.counter, 1)
+                _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await _ in Sheet.bodyEvaluationsPublisher().prefix(1) {}
+                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
             default: break
             }
         }
@@ -29,15 +29,15 @@ import XCTest
 
     func testContentView() async throws {
         AnyViewHosting.shared.view = ContentView()
-        for try await (index, view) in ContentView.bodyEvaluationsPublisher().prefix(2) {
+        for try await (index, view) in ContentView.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
-                XCTAssertEqual(view.vm.counter, 0)
+                _ = try view.inspect().find(text: "The counter value is 0")
                 try view.inspect().find(button: "Increase").tap()
             case 1:
-                XCTAssertEqual(view.vm.counter, 1)
+                _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await _ in Sheet.bodyEvaluationsPublisher().prefix(1) {}
+                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
             default: break
             }
         }

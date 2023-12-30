@@ -97,11 +97,11 @@ We need to notify the test function that body evaluation happened. To achieve th
 
 We can test both SwiftUI and MVVM versions in the same way, no hacking, no third party libs.
 
-We receive body-evaluation index and the view itself from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
+We receive body-evaluation index and the view itself as an async sequence from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
 ```
 func testContenModel() async throws {
     AnyViewHosting.shared.view = ContentModel()
-    for try await (index, view) in ContentModel.bodyEvaluationsPublisher().prefix(2) {
+    for try await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.counter, 0)
@@ -116,7 +116,7 @@ func testContenModel() async throws {
 
 func testContentView() async throws {
     AnyViewHosting.shared.view = ContentView()
-    for try await (index, view) in ContentView.bodyEvaluationsPublisher().prefix(2) {
+    for try await (index, view) in ContentView.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.vm.counter, 0)
@@ -134,36 +134,16 @@ func testContentView() async throws {
 
 Testing the body function using tools like ViewInspector, in conjunction with our native testing approach, allows us to interact with SwiftUI elements and to verify their values with each interaction.
 
-Tests are almost identical:
+Tests are identical, so here is the switch part:
 ```
-func testContenModel() async throws {
-    AnyViewHosting.shared.view = ContentModel()
-    for try await (index, view) in ContentModel.bodyEvaluationsPublisher().prefix(2) {
-        switch index {
-        case 0:
-            XCTAssertEqual(view.counter, 0)
-            try view.inspect().find(button: "Increase").tap()
-        case 1:
-            XCTAssertEqual(view.counter, 1)
-            try view.inspect().find(button: "Show sheet").tap()
-        default: break
-        }
-    }
-}
-
-func testContentView() async throws {
-    AnyViewHosting.shared.view = ContentView()
-    for try await (index, view) in ContentView.bodyEvaluationsPublisher().prefix(2) {
-        switch index {
-        case 0:
-            XCTAssertEqual(view.vm.counter, 0)
-            try view.inspect().find(button: "Increase").tap()
-        case 1:
-            XCTAssertEqual(view.vm.counter, 1)
-            try view.inspect().find(button: "Show sheet").tap()
-        default: break
-        }
-    }
+switch index {
+case 0:
+    _ = try view.inspect().find(text: "The counter value is 0")
+    try view.inspect().find(button: "Increase").tap()
+case 1:
+    _ = try view.inspect().find(text: "The counter value is 1")
+    try view.inspect().find(button: "Show sheet").tap()
+default: break
 }
 ```
 
