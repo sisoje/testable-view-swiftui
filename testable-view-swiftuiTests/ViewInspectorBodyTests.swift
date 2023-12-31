@@ -21,7 +21,9 @@ import XCTest
             case 1:
                 _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
+                for try await (_, view) in Sheet.bodyEvaluations().prefix(1) {
+                    _ = try view.inspect().find(text: "This is sheet")
+                }
             default: break
             }
         }
@@ -37,7 +39,9 @@ import XCTest
             case 1:
                 _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
+                for try await (_, view) in Sheet.bodyEvaluations().prefix(1) {
+                    _ = try view.inspect().find(text: "This is sheet")
+                }
             default: break
             }
         }
