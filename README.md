@@ -1,6 +1,6 @@
 # Testable SwiftUI views using async/await
 
-### NOTE: All the boilerplate code you need is in (TestingSupport.swift)[https://github.com/sisoje/testable-view-swiftui/blob/main/testable-view-swiftui/TestingSupport.swift] and it has 30 lines of code.
+### NOTE: All the boilerplate code you need is in [TestingSupport.swift](https://github.com/sisoje/testable-view-swiftui/blob/main/testable-view-swiftui/TestingSupport.swift) and it has 30 lines of code.
 
 - This example demonstrates how to test any `SwiftUI.View` without hacks or third-party libraries, accomplished in just a few minutes of coding.
 - We compare SwiftUI and MVVM and show that the `Observable` view-model approach may not be the best fit for SwiftUI, as it doesn't align well with its paradigm.
