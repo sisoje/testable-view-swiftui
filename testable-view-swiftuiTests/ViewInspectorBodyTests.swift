@@ -13,7 +13,7 @@ import XCTest
 @MainActor final class ViewInspectorBodyTests: XCTestCase {
     func testContenModel() async throws {
         AnyViewHosting.shared.view = ContentModel()
-        for try await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
+        for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
                 _ = try view.inspect().find(text: "The counter value is 0")
@@ -21,7 +21,7 @@ import XCTest
             case 1:
                 _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await (_, view) in Sheet.bodyEvaluations().prefix(1) {
+                for await (_, view) in Sheet.bodyEvaluations().prefix(1) {
                     _ = try view.inspect().find(text: "This is sheet")
                 }
             default: break
@@ -31,7 +31,7 @@ import XCTest
 
     func testContentView() async throws {
         AnyViewHosting.shared.view = ContentView()
-        for try await (index, view) in ContentView.bodyEvaluations().prefix(2) {
+        for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
                 _ = try view.inspect().find(text: "The counter value is 0")
@@ -39,7 +39,7 @@ import XCTest
             case 1:
                 _ = try view.inspect().find(text: "The counter value is 1")
                 try view.inspect().find(button: "Show sheet").tap()
-                for try await (_, view) in Sheet.bodyEvaluations().prefix(1) {
+                for await (_, view) in Sheet.bodyEvaluations().prefix(1) {
                     _ = try view.inspect().find(text: "This is sheet")
                 }
             default: break

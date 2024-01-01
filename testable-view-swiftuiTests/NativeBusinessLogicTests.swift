@@ -12,7 +12,7 @@ import XCTest
 @MainActor final class NativeBusinessLogicTests: XCTestCase {
     func testContenModel() async throws {
         AnyViewHosting.shared.view = ContentModel()
-        for try await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
+        for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
                 XCTAssertEqual(view.counter, 0)
@@ -20,7 +20,7 @@ import XCTest
             case 1:
                 XCTAssertEqual(view.counter, 1)
                 view.showSheet()
-                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
+                for await _ in Sheet.bodyEvaluations().prefix(1) {}
             default: break
             }
         }
@@ -28,7 +28,7 @@ import XCTest
 
     func testContentView() async throws {
         AnyViewHosting.shared.view = ContentView()
-        for try await (index, view) in ContentView.bodyEvaluations().prefix(2) {
+        for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
                 XCTAssertEqual(view.vm.counter, 0)
@@ -36,7 +36,7 @@ import XCTest
             case 1:
                 XCTAssertEqual(view.vm.counter, 1)
                 view.vm.showSheet()
-                for try await _ in Sheet.bodyEvaluations().prefix(1) {}
+                for await _ in Sheet.bodyEvaluations().prefix(1) {}
             default: break
             }
         }

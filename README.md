@@ -101,7 +101,7 @@ We receive body-evaluation index and the view itself as an async sequence from o
 ```
 func testContenModel() async throws {
     AnyViewHosting.shared.view = ContentModel()
-    for try await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
+    for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.counter, 0)
@@ -116,7 +116,7 @@ func testContenModel() async throws {
 
 func testContentView() async throws {
     AnyViewHosting.shared.view = ContentView()
-    for try await (index, view) in ContentView.bodyEvaluations().prefix(2) {
+    for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
             XCTAssertEqual(view.vm.counter, 0)
