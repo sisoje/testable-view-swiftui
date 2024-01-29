@@ -8,11 +8,6 @@
 import Combine
 import SwiftUI
 
-@Observable final class AnyViewHosting {
-    static let shared = AnyViewHosting()
-    var view: any View = EmptyView()
-}
-
 extension Publisher {
     func enumerated() -> AnyPublisher<(Int, Output), Failure> {
         scan(nil) { acc, next in

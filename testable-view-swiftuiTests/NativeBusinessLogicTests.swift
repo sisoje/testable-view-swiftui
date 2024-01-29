@@ -11,7 +11,7 @@ import XCTest
 
 @MainActor final class NativeBusinessLogicTests: XCTestCase {
     func testContenModel() async throws {
-        AnyViewHosting.shared.view = ContentModel()
+        TestApp.shared.view = ContentModel()
         for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
             switch index {
             case 0:
@@ -27,7 +27,7 @@ import XCTest
     }
 
     func testContentView() async throws {
-        AnyViewHosting.shared.view = ContentView()
+        TestApp.shared.view = ContentView()
         for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
             switch index {
             case 0:

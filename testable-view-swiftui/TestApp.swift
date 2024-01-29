@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct TestApp: App {
-    @State private var hosting = AnyViewHosting.shared
+    static var shared: Self!
+    @State var view: any View = EmptyView()
     var body: some Scene {
+        let _ = Self.shared = self
         WindowGroup {
-            AnyView(hosting.view)
+            AnyView(view)
         }
     }
 }

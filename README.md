@@ -81,13 +81,15 @@ struct ContentView: View {
 
 The key for view testing is to host the View in some App.
 
-Shockingly, we do use Observable class because we need to share state between the main-target and the test-target:
+We need to share the state, that is the hosted view, between the main-target and the test-target:
 ```
 struct TestApp: App {
-    @State private var hosting = AnyViewHosting.shared
+    static var shared: Self!
+    @State var view: any View = EmptyView()
     var body: some Scene {
+        let _ = Self.shared = self
         WindowGroup {
-            AnyView(hosting.view)
+            AnyView(view)
         }
     }
 }
@@ -105,7 +107,7 @@ We can test both SwiftUI and MVVM versions in the same way, no hacking, no third
 We receive body-evaluation index and the view itself as an async sequence from our 30-lines of code "framework" so we can test if the evaluations behave like we intended:
 ```
 func testContenModel() async throws {
-    AnyViewHosting.shared.view = ContentModel()
+    TestApp.shared.view = ContentModel()
     for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
@@ -120,7 +122,7 @@ func testContenModel() async throws {
 }
 
 func testContentView() async throws {
-    AnyViewHosting.shared.view = ContentView()
+    TestApp.shared.view = ContentView()
     for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
         switch index {
         case 0:
