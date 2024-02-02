@@ -10,7 +10,9 @@ import SwiftUI
 import ViewInspector
 import XCTest
 
-@MainActor final class ViewInspectorBodyTests: XCTestCase {
+final class ViewInspectorBodyTests: XCTestCase {}
+
+@MainActor extension ViewInspectorBodyTests {
     func testContenModel() async throws {
         TestApp.shared.view = ContentModel()
         for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {

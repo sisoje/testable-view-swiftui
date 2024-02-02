@@ -9,7 +9,9 @@ import SwiftUI
 @testable import testable_view_swiftui
 import XCTest
 
-@MainActor final class NativeBusinessLogicTests: XCTestCase {
+final class NativeBusinessLogicTests: XCTestCase {}
+
+@MainActor extension NativeBusinessLogicTests {
     func testContenModel() async throws {
         TestApp.shared.view = ContentModel()
         for await (index, view) in ContentModel.bodyEvaluations().prefix(2) {
@@ -25,7 +27,7 @@ import XCTest
             }
         }
     }
-
+    
     func testContentView() async throws {
         TestApp.shared.view = ContentView()
         for await (index, view) in ContentView.bodyEvaluations().prefix(2) {
